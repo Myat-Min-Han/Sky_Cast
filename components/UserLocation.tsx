@@ -1,10 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { toast } from "sonner"
 
 export default function UserLocation({ onLocation }: { onLocation: (region: string) => void }) {
-  const [error, setError] = useState<string | null>(null);
-
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -18,12 +17,12 @@ export default function UserLocation({ onLocation }: { onLocation: (region: stri
             onLocation(places[0].region); 
           }
         },
-        (err) => setError(err.message)
+        (err) => toast.error(err.message)
       );
     } else {
-      setError("Geolocation not supported");
+      toast.error("Geolocation not supported")
     }
   }, []);
 
-  return error ? <p className="text-red-500">{error}</p> : null;
+  return <></>
 }

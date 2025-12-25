@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css"
+import "./globals.css";
+import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,20 +17,6 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Skycast - Your Sky, Your Forecast",
   description: "Get real-time weather updates and forecasts tailored to your location.",
-  openGraph: {
-    title: "Skycast - Your Sky, Your Forecast",
-    description: "Get real-time weather updates and forecasts tailored to your location.",
-    url: "https://myskycast.vercel.app",
-    siteName: "Skycast",
-    images: [
-      {
-        url: "/opengraph-image.png", 
-        width: 1200,
-        height: 630,
-        alt: "Skycast Weather Preview",
-      },
-    ],
-  },
 };
 
 export default function RootLayout({
@@ -43,6 +30,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
+        <Toaster />
       </body>
     </html>
   );

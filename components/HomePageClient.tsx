@@ -5,6 +5,7 @@ import Image from 'next/image';
 import UserLocation from "@/components/UserLocation";
 import { useRouter } from "next/navigation";
 import { useCallback } from "react";
+import WeatherDrawer from "./WeatherDrawer";
 
 export default function HomePage({ data }: { data: any}) {
   const router = useRouter();
@@ -29,12 +30,12 @@ export default function HomePage({ data }: { data: any}) {
         <div className="p-4 rounded-md shadow-md col-span-3">
           { data && !isError ? (
             <>
-              <div className="flex items-center gap-4 mb-6">
+              <div className="flex items-center justify-center gap-4 mb-6 ">
                 <Image 
                   src={`https:${data.current.condition.icon}`}
                   alt={data.current.condition.text}
-                  width={100}
-                  height={100}
+                  width={150}
+                  height={150}
                 />
                 <div>
                   <h2 className="text-xl font-semibold">
@@ -50,25 +51,9 @@ export default function HomePage({ data }: { data: any}) {
 
               <div>
                 <h3 className="text-lg font-bold mb-4">6-Day Forecast</h3>
-                <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-4">
+                <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4">
                   {data.forecast.forecastday.slice(1).map((day: any) => (
-                    <div
-                      key={day.date}
-                      className="bg-white rounded-md shadow p-3 flex flex-col items-start"
-                    >
-                      <p className="font-semibold">{day.date}</p>
-                      <Image
-                        src={`https:${day.day.condition.icon}`}
-                        alt={day.day.condition.text}
-                        width={48}
-                        height={48}
-                      />
-                      <p>{day.day.condition.text}</p>
-                      <p className="text-sm">
-                        {day.day.avgtemp_c}°C / {day.day.avgtemp_f}°F
-                      </p>
-                      <p className="text-sm">Rain: {day.day.daily_chance_of_rain}%</p>
-                    </div>
+                    <WeatherDrawer key={day.date} day={day}/>
                   ))}
                 </div>
               </div>
